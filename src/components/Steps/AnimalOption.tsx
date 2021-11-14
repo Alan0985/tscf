@@ -12,7 +12,6 @@ type Props = {
     prevStep: any,
     onChange: any,
     onChecked: any,
-    // onChange: ( event: SelectChangeEvent<HTMLSelectElement> ) => void,
     values: any
 }
 

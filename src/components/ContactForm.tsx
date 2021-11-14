@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import validator from 'validator';
 
 import { UserDetail } from './Steps/UserDetail';
 import { ColorOption } from './Steps/ColorOption';
 import { AnimalOption } from './Steps/AnimalOption';
-import { SelectChangeEvent } from '@mui/material/Select';
 
 type errorProps = {
     email: string,
@@ -30,44 +29,11 @@ export const ContactForm = () =>
     };
     const [values, setValues] = useState( initialState );
 
-    useEffect( () => { }, [errors] )
-
-    const nextStep = () =>
-    {
-        setErrors( validate( values ) )
-        if ( errors.email || errors.password )
-        {
-            return;
-        } else
-        {
-            setStep( step + 1 );
-        }
-    }
-
-    const prevStep = () =>
-    {
-        setStep( step - 1 )
-    }
-
     const onChange = ( event: React.ChangeEvent<HTMLInputElement> ) =>
     {
         event.preventDefault();
         const { name, value } = event.target;
         setValues( { ...values, [name]: value } )
-    }
-
-    // const onSelect = ( event: SelectChangeEvent<HTMLSelectElement> ) =>
-    // {
-    //     event.preventDefault();
-    //     const { name, value } = event.target;
-    //     setValues( { ...values, [name]: value } )
-    // }
-
-    const onChecked = ( event: React.ChangeEvent<HTMLInputElement> ) =>
-    {
-        const { name, checked } = event.target;
-        setValues( { ...values, animal: { ...values.animal, [name]: checked } } )
-
     }
 
     const validate = ( values: errorProps ) =>
@@ -96,12 +62,55 @@ export const ContactForm = () =>
         return errors;
     }
 
+    const onBlur = ( event: React.FocusEvent<HTMLInputElement> ) =>
+    {
+        setErrors( validate( values ) )
+    }
+
+    const nextStep = () =>
+    {
+        if ( errors.email || errors.password )
+        {
+            return;
+        } else
+        {
+            setStep( step + 1 );
+        }
+    }
+
+    const prevStep = () =>
+    {
+        setStep( step - 1 )
+    }
+
+    const onChecked = ( event: React.ChangeEvent<HTMLInputElement> ) =>
+    {
+        const { name, checked } = event.target;
+        setValues( { ...values, animal: { ...values.animal, [name]: checked } } )
+    }
+
     return (
         <>
             {{
-                1: <UserDetail errors={errors} nextStep={nextStep} onChange={onChange} values={values} />,
-                2: <ColorOption prevStep={prevStep} nextStep={nextStep} onChange={onChange} values={values} />,
-                3: <AnimalOption prevStep={prevStep} onChange={onChange} onChecked={onChecked} values={values} />,
+                1: <UserDetail
+                    errors={errors}
+                    nextStep={nextStep}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    values={values}
+                />,
+                2: <ColorOption
+                    prevStep={prevStep}
+                    nextStep={nextStep}
+                    onChange={onChange}
+                    values={values}
+                />,
+                3: <AnimalOption
+                    prevStep={prevStep}
+                    onChange={onChange}
+                    onChecked={onChecked}
+                    values={values}
+                />,
             }[step]}
         </>
     )
