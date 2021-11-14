@@ -49,6 +49,7 @@ export const ContactForm = () =>
     {
         const { name, checked } = event.target;
         setValues( { ...values, animal: { ...values.animal, [name]: checked } } )
+
     }
 
     return (
@@ -56,7 +57,7 @@ export const ContactForm = () =>
             {{
                 1: <UserDetail nextStep={nextStep} onChange={onChange} values={values} />,
                 2: <ColorOption prevStep={prevStep} nextStep={nextStep} onChange={onChange} values={values} />,
-                3: <AnimalOption prevStep={prevStep} onChange={onChecked} values={values} />,
+                3: <AnimalOption prevStep={prevStep} onChange={onChange} onChecked={onChecked} values={values} />,
             }[step]}
         </>
     )

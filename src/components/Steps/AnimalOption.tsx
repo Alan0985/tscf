@@ -5,20 +5,23 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormHelperText from '@mui/material/FormHelperText';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+
 
 type Props = {
     prevStep: any,
     onChange: any,
+    onChecked: any,
     // onChange: ( event: SelectChangeEvent<HTMLSelectElement> ) => void,
     values: any
 }
 
-const onSubmit = () =>
+export const AnimalOption = ( { prevStep, onChecked, onChange, values }: Props ) =>
 {
-}
-
-export const AnimalOption = ( { prevStep, onChange, values }: Props ) =>
-{
+    const onSubmit = () =>
+    {
+        console.log( values )
+    }
     return (
         <>
             <FormControl
@@ -27,36 +30,51 @@ export const AnimalOption = ( { prevStep, onChange, values }: Props ) =>
                 variant="standard"
             >
                 <FormLabel component="legend">Animals:</FormLabel>
+                <FormHelperText>Multiple options can be selected</FormHelperText>
+
                 <FormGroup>
                     <FormControlLabel
                         control={
-                            <Checkbox checked={values.animal.bear} onChange={onChange} name="bear" />
+                            <Checkbox checked={values.animal.bear} onChange={onChecked} name="bear" />
                         }
                         label="Bear"
                     />
+
                     <FormControlLabel
                         control={
-                            <Checkbox checked={values.animal.tiger} onChange={onChange} name="tiger" />
+                            <Checkbox checked={values.animal.tiger} onChange={onChecked} name="tiger" />
                         }
                         label="Tiger"
                     />
+
+                    {values.animal.tiger && (
+                        <TextField
+                            required
+                            label="Type Of Tiger"
+                            placeholder="Type Of Tiger"
+                            multiline
+                            name="typeOfAnimal"
+                            value={values.typeOfAnimal}
+                            onChange={onChange}
+                        />
+                    )}
+
                     <FormControlLabel
                         control={
-                            <Checkbox checked={values.animal.snake} onChange={onChange} name="snake" />
+                            <Checkbox checked={values.animal.snake} onChange={onChecked} name="snake" />
                         }
                         label="Snake"
                     />
+
                     <FormControlLabel
                         control={
-                            <Checkbox checked={values.animal.donkey} onChange={onChange} name="donkey" />
+                            <Checkbox checked={values.animal.donkey} onChange={onChecked} name="donkey" />
                         }
                         label="Donkey"
                     />
+                    <Button variant="contained" onClick={prevStep}>Back</Button>
+                    <Button variant="contained" onClick={onSubmit}>Submit</Button>
                 </FormGroup>
-                <FormHelperText>Multiple options can be selected</FormHelperText>
-
-                <Button variant="contained" onClick={prevStep}>Back</Button>
-                <Button variant="contained" onClick={onSubmit}>Submit</Button>
             </FormControl>
         </>
     )
