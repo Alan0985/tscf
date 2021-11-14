@@ -1,27 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { UserDetail } from './Steps/UserDetail';
 import { ColorOption } from './Steps/ColorOption';
 import { AnimalOption } from './Steps/AnimalOption';
 import { SelectChangeEvent } from '@mui/material/Select';
 
-
-type Props = {
-    email: string,
-    password: string,
-    color: string,
-    animal: string,
-    typeOfAnimal: string,
-}
-
-type stepProps = {
-    step: number,
-}
-
-
 export const ContactForm = () =>
 {
     const [step, setStep] = useState( 1 );
-    const initialState = { email: '', password: '', color: '', animal: '', typeOfAnimal: '' };
+    const initialState = {
+        email: '',
+        password: '',
+        color: '',
+        animal: {
+            bear: false,
+            tiger: false,
+            snake: false,
+            donkey: false
+        },
+        typeOfAnimal: ''
+    };
     const [values, setValues] = useState( initialState );
 
     const nextStep = () =>
@@ -41,21 +38,25 @@ export const ContactForm = () =>
         setValues( { ...values, [name]: value } )
     }
 
-    const onSelect = ( event: SelectChangeEvent<HTMLSelectElement> ) =>
-    {
-        event.preventDefault();
-        const { name, value } = event.target;
-        setValues( { ...values, [name]: value } )
-    }
+    // const onSelect = ( event: SelectChangeEvent<HTMLSelectElement> ) =>
+    // {
+    //     event.preventDefault();
+    //     const { name, value } = event.target;
+    //     setValues( { ...values, [name]: value } )
+    // }
 
-    const { email, password, color, animal, typeOfAnimal } = initialState;
+    const onChecked = ( event: React.ChangeEvent<HTMLInputElement> ) =>
+    {
+        const { name, checked } = event.target;
+        setValues( { ...values, animal: { ...values.animal, [name]: checked } } )
+    }
 
     return (
         <>
             {{
                 1: <UserDetail nextStep={nextStep} onChange={onChange} values={values} />,
-                2: <ColorOption prevStep={prevStep} nextStep={nextStep} onChange={onSelect} values={values} />,
-                3: <AnimalOption />,
+                2: <ColorOption prevStep={prevStep} nextStep={nextStep} onChange={onChange} values={values} />,
+                3: <AnimalOption prevStep={prevStep} onChange={onChecked} values={values} />,
             }[step]}
         </>
     )

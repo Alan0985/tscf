@@ -9,7 +9,8 @@ import Button from '@mui/material/Button';
 type Props = {
     nextStep: any,
     prevStep: any,
-    onChange: ( event: SelectChangeEvent<HTMLSelectElement> ) => void,
+    onChange: any,
+    // onChange: ( event: SelectChangeEvent<HTMLSelectElement> ) => void,
     values: any
 }
 
