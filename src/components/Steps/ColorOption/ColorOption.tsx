@@ -1,10 +1,11 @@
-import { ThemeProvider } from '@mui/material/styles';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
+
+import { StyledColorOption } from './ColorOption.style';
 
 type Props = {
     nextStep: any,
@@ -16,7 +17,7 @@ type Props = {
 export const ColorOption = ( { prevStep, nextStep, onChange, values }: Props ) =>
 {
     return (
-        <>
+        <StyledColorOption>
             <FormControl sx={{ m: 1, minWidth: 120 }}>
                 <InputLabel id="color">Color</InputLabel>
                 <Select
@@ -34,8 +35,10 @@ export const ColorOption = ( { prevStep, nextStep, onChange, values }: Props ) =
                 </Select>
                 <FormHelperText>Only one option may be selected</FormHelperText>
             </FormControl>
-            <Button variant="contained" onClick={prevStep}>Back</Button>
-            <Button variant="contained" onClick={nextStep}>Next</Button>
-        </>
+            <div>
+                <Button variant="contained" onClick={prevStep}>Back</Button>
+                <Button variant="contained" onClick={nextStep}>Next</Button>
+            </div>
+        </StyledColorOption>
     )
 }

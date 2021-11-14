@@ -1,8 +1,8 @@
 import React from 'react';
-import { ThemeProvider } from '@mui/material/styles';
-
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+
+import { StyledUserDetail } from './UserDetail.style';
 
 type Props = {
     nextStep: any,
@@ -21,7 +21,7 @@ export const UserDetail = ( { nextStep, onChange, onBlur, values, errors }: Prop
 {
     const { email, password }: textFieldProps = values;
     return (
-        <>
+        <StyledUserDetail>
             <TextField
                 error={errors.email ? true : false}
                 helperText={errors.email}
@@ -48,6 +48,6 @@ export const UserDetail = ( { nextStep, onChange, onBlur, values, errors }: Prop
             />
 
             <Button variant="contained" onClick={nextStep}>Next</Button>
-        </>
+        </StyledUserDetail>
     )
 }

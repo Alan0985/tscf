@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import validator from 'validator';
+import { Typography } from '@mui/material';
 
-import { UserDetail } from './Steps/UserDetail';
-import { ColorOption } from './Steps/ColorOption';
-import { AnimalOption } from './Steps/AnimalOption';
+import { UserDetail } from './Steps/UserDetail/UserDetail';
+import { ColorOption } from './Steps/ColorOption/ColorOption';
+import { AnimalOption } from './Steps/AnimalOption/AnimalOption';
+
+import { StyledContactForm } from './ContactForm.style';
 
 type errorProps = {
     email: string,
@@ -52,7 +55,7 @@ export const ContactForm = () =>
 
         if ( !validator.isLength( values.password, { min: 8 } ) )
         {
-            errors.password = "Password must be at least 8 characters";
+            errors.password = "Password must be longer than 8";
         }
 
         if ( validator.isEmpty( values.password ) )
@@ -90,7 +93,10 @@ export const ContactForm = () =>
     }
 
     return (
-        <>
+        <StyledContactForm>
+            <header>
+                <Typography variant="h4">Contact Form</Typography>
+            </header>
             {{
                 1: <UserDetail
                     errors={errors}
@@ -112,6 +118,6 @@ export const ContactForm = () =>
                     values={values}
                 />,
             }[step]}
-        </>
+        </StyledContactForm>
     )
 }

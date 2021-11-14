@@ -1,4 +1,3 @@
-import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -6,7 +5,9 @@ import FormHelperText from '@mui/material/FormHelperText';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import { Typography } from '@mui/material';
 
+import { StyledAnimalOption } from './AnimalOption.style';
 
 type Props = {
     prevStep: any,
@@ -22,13 +23,13 @@ export const AnimalOption = ( { prevStep, onChecked, onChange, values }: Props )
         console.log( values )
     }
     return (
-        <>
+        <StyledAnimalOption>
             <FormControl
                 component="fieldset"
                 sx={{ m: 3 }}
                 variant="standard"
             >
-                <FormLabel component="legend">Animals:</FormLabel>
+                <Typography variant="h5">Animals</Typography>
                 <FormHelperText>Multiple options can be selected</FormHelperText>
 
                 <FormGroup>
@@ -71,10 +72,13 @@ export const AnimalOption = ( { prevStep, onChecked, onChange, values }: Props )
                         }
                         label="Donkey"
                     />
-                    <Button variant="contained" onClick={prevStep}>Back</Button>
-                    <Button variant="contained" onClick={onSubmit}>Submit</Button>
+
+                    <div>
+                        <Button variant="contained" onClick={prevStep}>Back</Button>
+                        <Button variant="contained" onClick={onSubmit}>Submit</Button>
+                    </div>
                 </FormGroup>
             </FormControl>
-        </>
+        </StyledAnimalOption>
     )
 }
