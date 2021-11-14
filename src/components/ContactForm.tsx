@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { UserDetail } from './Steps/UserDetail';
 import { ColorOption } from './Steps/ColorOption';
 import { AnimalOption } from './Steps/AnimalOption';
+import { SelectChangeEvent } from '@mui/material/Select';
+
 
 type Props = {
     email: string,
@@ -22,20 +24,27 @@ export const ContactForm = () =>
     const initialState = { email: '', password: '', color: '', animal: '', typeOfAnimal: '' };
     const [values, setValues] = useState( initialState );
 
-    const nextStep = ( { step }: stepProps ) =>
+    const nextStep = () =>
     {
         setStep( step + 1 )
     }
 
-    const prevStep = ( { step }: stepProps ) =>
+    const prevStep = () =>
     {
         setStep( step - 1 )
     }
 
-    const onChange = ( e: React.ChangeEvent<HTMLInputElement> ) =>
+    const onChange = ( event: React.ChangeEvent<HTMLInputElement> ) =>
     {
-        e.preventDefault();
-        const { name, value } = e.target;
+        event.preventDefault();
+        const { name, value } = event.target;
+        setValues( { ...values, [name]: value } )
+    }
+
+    const onSelect = ( event: SelectChangeEvent<HTMLSelectElement> ) =>
+    {
+        event.preventDefault();
+        const { name, value } = event.target;
         setValues( { ...values, [name]: value } )
     }
 
@@ -44,11 +53,10 @@ export const ContactForm = () =>
     return (
         <>
             {{
-                // 1: <UserDetail nextStep={nextStep} onChange={onChange} values={values} />,
-                1: <UserDetail />,
-                2: <ColorOption />,
+                1: <UserDetail nextStep={nextStep} onChange={onChange} values={values} />,
+                2: <ColorOption prevStep={prevStep} nextStep={nextStep} onChange={onSelect} values={values} />,
                 3: <AnimalOption />,
-            }[1 || step]}
+            }[step]}
         </>
     )
 }
