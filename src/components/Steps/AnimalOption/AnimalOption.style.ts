@@ -7,8 +7,4 @@ export const StyledAnimalOption = styled.div`
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-
-    button{
-        margin: 0 20px;
-    }
 `
