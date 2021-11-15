@@ -48,6 +48,6 @@ export const UserDetail = ( { nextStep, onChange, onBlur, values, errors }: Prop
             />
 
             <Button variant="contained" onClick={nextStep}>Next</Button>
-        </StyledUserDetail>
+        </StyledUserDetail >
     )
 }

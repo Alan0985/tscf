@@ -72,6 +72,7 @@ export const ContactForm = () =>
 
     const nextStep = () =>
     {
+        setErrors( validate( values ) )
         if ( errors.email || errors.password )
         {
             return;
