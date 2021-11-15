@@ -9,7 +9,6 @@ const theme = {
     white: '#fff',
   },
   vp: {
-    xs: '375px',
     sm: '768px',
   },
 };
@@ -22,7 +21,6 @@ function App()
         <ContactForm />
       </div>
     </ThemeProvider>
-
   );
 }
 

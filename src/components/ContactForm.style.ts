@@ -22,6 +22,11 @@ export const StyledContactForm = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
+        text-align: center;
         border-bottom: 3px solid ${ ( { theme }: Props ) => theme.color.primary };
     }
+
+    @media (max-width: ${ ( { theme }: Props ) => theme.vp.sm }) {
+        margin: auto 20px;
+  }
 `
