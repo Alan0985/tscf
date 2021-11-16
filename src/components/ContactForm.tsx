@@ -15,7 +15,7 @@ type errorProps = {
 
 export const ContactForm = () =>
 {
-    const [step, setStep] = useState( 1 );
+    const [step, setStep] = useState<number>( 1 );
     const [errors, setErrors] = useState( { email: '', password: '' } )
 
     const initialState = {
